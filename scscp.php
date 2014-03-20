@@ -74,9 +74,11 @@ print_r($xml->OMATTR->OMA);
 
 echo "=========================\n";
 
-$res = (string) $xml->OMATTR->OMA->OMI; 
-
+$res = (string) $xml->OMATTR->OMA->OMA->OMS[1]['name']; 
 print_r($res);
+echo "\n";
+$hint = (string) $xml->OMATTR->OMA->OMA->OMSTR; 
+print_r($hint);
 
 echo "\n";
 
@@ -84,4 +86,12 @@ echo "#########################\n";
 
 }
 
-?> 
+###########################################################################
+#
+# ValidateBySCSCP( server, port )
+#
+function ValidateBySCSCP ( $student_answer, $model_answer, $mode, $server, $port ){
+return EvaluateBySCSCP( 'ValidateAnswer', '<OMSTR>'.$student_answer.'</OMSTR><OMSTR>'.$model_answer.'</OMSTR><OMSTR>'.$mode.'</OMSTR>', $server, $port );
+}
+
+?>
