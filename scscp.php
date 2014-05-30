@@ -35,7 +35,9 @@ return [ $result, $hint ];
 # 
 function ComposeSCSCPcall ( $command, $arg, $cd='scscp_transient_1' ){
 
-$str = "<?scscp start ?>\n<OMOBJ><OMATTR><OMATP><OMS cd=\"scscp1\" name=\"call_id\"/><OMSTR>test</OMSTR><OMS cd=\"scscp1\" name=\"option_return_object\"/><OMSTR></OMSTR></OMATP><OMA><OMS cd=\"scscp1\" name=\"procedure_call\"/><OMA><OMS cd=\"".$cd."\" name=\"".$command."\"/>".$arg."</OMA></OMA></OMATTR></OMOBJ>\n<?scscp end ?>\n";
+$call_id = substr(MD5(microtime()), 0, 10);
+
+$str = "<?scscp start ?>\n<OMOBJ><OMATTR><OMATP><OMS cd=\"scscp1\" name=\"call_id\"/><OMSTR>".$call_id."</OMSTR><OMS cd=\"scscp1\" name=\"option_return_object\"/><OMSTR></OMSTR></OMATP><OMA><OMS cd=\"scscp1\" name=\"procedure_call\"/><OMA><OMS cd=\"".$cd."\" name=\"".$command."\"/>".$arg."</OMA></OMA></OMATTR></OMOBJ>\n<?scscp end ?>\n";
 
 return $str;
 
