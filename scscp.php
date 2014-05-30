@@ -16,6 +16,31 @@ if ($socket == false ) {
 }
 }
 
+###########################################################################
+#
+# ParseSCSCPresult( data );
+# 
+function ParseSCSCPresult( $string ){
+$xml = simplexml_load_string($string, 'SimpleXMLElement'); 
+print_r($xml->OMATTR->OMA); 
+$result = (string) $xml->OMATTR->OMA->OMA->OMS[1]['name']; 
+$hint = (string) $xml->OMATTR->OMA->OMA->OMSTR; 
+return [ $result, $hint ];
+}
+
+
+###########################################################################
+#
+# ComposeSCSCPcall( command, arg, cd=scscp_transient_1 );
+# 
+function ComposeSCSCPcall ( $command, $arg, $cd='scscp_transient_1' ){
+
+$str = "<?scscp start ?>\n<OMOBJ><OMATTR><OMATP><OMS cd=\"scscp1\" name=\"call_id\"/><OMSTR>test</OMSTR><OMS cd=\"scscp1\" name=\"option_return_object\"/><OMSTR></OMSTR></OMATP><OMA><OMS cd=\"scscp1\" name=\"procedure_call\"/><OMA><OMS cd=\"".$cd."\" name=\"".$command."\"/>".$arg."</OMA></OMA></OMATTR></OMOBJ>\n<?scscp end ?>\n";
+
+return $str;
+
+}
+
     
 ###########################################################################
 #
@@ -45,7 +70,7 @@ if($data !== "")
 
 # assemble and send SCSCP procedure call
   
-$str = "<?scscp start ?>\n<OMOBJ><OMATTR><OMATP><OMS cd=\"scscp1\" name=\"call_id\"/><OMSTR>test</OMSTR><OMS cd=\"scscp1\" name=\"option_return_object\"/><OMSTR></OMSTR></OMATP><OMA><OMS cd=\"scscp1\" name=\"procedure_call\"/><OMA><OMS cd=\"".$cd."\" name=\"".$command."\"/>".$arg."</OMA></OMA></OMATTR></OMOBJ>\n<?scscp end ?>\n";
+$str = ComposeSCSCPcall( $command, $arg, $cd );
 
 echo "### Sending procedure call \n\n";
 
@@ -59,6 +84,10 @@ echo "\n### Receiving result \n\n";
 
 $data = '';
 
+# start reading OpenMath object. We expect the first line to be SCSCP start 
+# processing instruction) but do not check it explicitly. The parser will 
+# just ignore that line.
+
 do {
     $line = fgets($socket, 4096);
     echo $line;
@@ -69,20 +98,11 @@ fclose($socket);
 
 echo "-------------------------\n";
 
-$xml = simplexml_load_string($data); 
-print_r($xml->OMATTR->OMA); 
+$res = ParseSCSCPresult($data); 
 
-echo "=========================\n";
-
-$res = (string) $xml->OMATTR->OMA->OMA->OMS[1]['name']; 
+echo "!!!!!!!!!!!!!!!!!!!!!!!!!\n";
 print_r($res);
-echo "\n";
-$hint = (string) $xml->OMATTR->OMA->OMA->OMSTR; 
-print_r($hint);
-
-echo "\n";
-
-echo "#########################\n";
+echo "\n#########################\n";
 
 }
 
