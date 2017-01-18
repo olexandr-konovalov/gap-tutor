@@ -1,0 +1,12 @@
+<OMOBJ>
+	<OMATTR>
+		<OMATP>
+			<OMS cd="scscp1" name="call_id"/>
+			<OMSTR>rt5c6rtng8</OMSTR>
+		</OMATP>
+		<OMA>
+			<OMS cd="scscp1" name="procedure_completed"/>
+			<OMI>3628800</OMI>
+		</OMA>
+	</OMATTR>
+</OMOBJ>
