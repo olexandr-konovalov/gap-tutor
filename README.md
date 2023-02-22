@@ -8,7 +8,7 @@ using the SCSCP protocol (http://www.symbolic-computing.org/scscp).
 
 The main file is `gapserver.g` which is the configuration file for the GAP 
 SCSCP server. The php code is experimental and is now being continued further 
-in https://github.com/alex-konovalov/moodle-qtype_stack and eventually will 
+in https://github.com/olexandr-konovalov/moodle-qtype_stack and eventually will 
 hopefully result in a pull request to https://github.com/maths/moodle-qtype_stack.
 
 Setting up and testing the development environment (on OS X):
@@ -21,7 +21,7 @@ Setting up and testing the development environment (on OS X):
   the following command in the top level folder of your Moodle installation
   (e.g. in `/Applications/MAMP/htdocs/moodle32/`): 
   ```
-  git clone https://github.com/alex-konovalov/moodle-qtype_stack question/type/stack.
+  git clone https://github.com/olexandr-konovalov/moodle-qtype_stack question/type/stack.
   ```
 
 - start GAP SCSCP server with `gap gapserver.g`
@@ -32,9 +32,9 @@ Setting up and testing the development environment (on OS X):
 - Navigate to ADMINISTRATION -> Site administration -> Plugins -> Question types -> STACK
 
 - In the list of links, click "The answer-tests script" and choose the answer test "Gap".
-  This will perform unit tests from [`tests/fixtures/answertestfixtures.class.php`](https://github.com/alex-konovalov/moodle-qtype_stack/blob/master/tests/fixtures/answertestfixtures.class.php).
+  This will perform unit tests from [`tests/fixtures/answertestfixtures.class.php`](https://github.com/olexandr-konovalov/moodle-qtype_stack/blob/master/tests/fixtures/answertestfixtures.class.php).
   New unit tests should be added to that file.
   
 The code for the prototype GAP answer test in STACK is located in
-[`stack/answertest/gap.class.php`](https://github.com/alex-konovalov/moodle-qtype_stack/blob/master/stack/answertest/gap.class.php).
+[`stack/answertest/gap.class.php`](https://github.com/olexandr-konovalov/moodle-qtype_stack/blob/master/stack/answertest/gap.class.php).
 
